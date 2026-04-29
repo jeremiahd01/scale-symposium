@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 SCALE Symposium & Annual Meeting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   SCALE DESIGN SYSTEM — CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --color-navy:       #092F4E;
+  --color-black:      #000000;
+  --color-dark-red:   #8A1F2E;
+  --color-red:        #B72025;
+  --color-blue:       #3676BC;
+  --color-light-blue: #E4EBEE;
+  --color-light-grey: #EBEBEB;
+  --color-white:      #FFFFFF;
+
+  --gradient-navy-red:  linear-gradient(135deg, #092F4E 0%, #B72025 100%);
+  --gradient-navy-blue: linear-gradient(135deg, #092F4E 0%, #3676BC 100%);
+
+  /* --font-display: 'Barlow Condensed', 'Franklin Gothic Medium Cond', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  /* --font-display: 'United Sans Cond', 'Franklin Gothic Medium Cond', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  --font-display: "United Sans Cond Heavy", "United Sans Reg Heavy", Impact, "Arial Black", sans-serif;
+  /* --font-body:    'Barlow', 'Franklin Gothic Book', Arial, sans-serif; */
+  /* --font-body:    'Barlow', 'Franklin Gothic Book', Arial, sans-serif; */
+  --font-body:    "Acumin Pro", "Franklin Gothic Book", Arial, sans-serif;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--color-black);
+  background: var(--color-white);
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; }
+
+/* ============================================================
+   SHARED UTILITIES
+   ============================================================ */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.section-headline {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.95;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+/* Parallelogram CTA button — matches brand emphasis shape language */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.9em 2.4em;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+.btn--dark-red   { background: var(--color-dark-red); color: #fff; }
+.btn--dark-red:hover { background: #a52535; }
+.btn--white      { background: var(--color-white); color: var(--color-navy); }
+.btn--white:hover{ background: var(--color-light-blue); }
+.btn--outline {
+  background: transparent;
+  color: #fff;
+  clip-path: none;
+  border: 2px solid rgba(255,255,255,0.55);
+  padding: 0.86em 2.3em;
+}
+.btn--outline:hover { border-color: #fff; }
+
+/* Emphasis shape — stacked wide-hexagon "server rack" callout blocks
+   Shape: flat-top hexagon, 2:1 width-to-height ratio
+   clip-path points: top-left(25%,0), top-right(75%,0), right-point(100%,50%),
+                     bottom-right(75%,100%), bottom-left(25%,100%), left-point(0,50%) */
+.emphasis-shape {
+  position: relative;
+  width: 320px;
+  height: 160px;          /* exactly 2:1 ratio */
+  /* clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); */
+  clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
+  opacity: 0.85;          /* allows color bleed-through at overlap seams */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 72px;        /* keeps text clear of the angled side points */
+}
+/* 10% overlap: 10% of 160px = 16px */
+.emphasis-shape + .emphasis-shape { margin-top: -16px; }
+
+/* z-index so top shape sits in front, allowing overlap effect */
+.emphasis-shape:nth-child(1) { z-index: 3; }
+.emphasis-shape:nth-child(2) { z-index: 2; }
+.emphasis-shape:nth-child(3) { z-index: 1; }
+
+.emphasis-shape__num {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.emphasis-shape__label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+  margin-top: 3px;
+}
+.es--navy    { background: var(--color-navy); }
+.es--charcoal{ background: #353535; }
+.es--darkred { background: var(--color-dark-red); }
+
+/* ============================================================
+   CIRCUIT SVG — reusable background illustration
+   (inline so no external file dependency)
+   ============================================================ */
+.circuit-bg {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ============================================================
+   1. HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  background: var(--color-navy);
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 100px 7% 80px;
+}
+
+/* Thin gradient bar at the bottom of the hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 5px;
+  background: var(--gradient-navy-red);
+}
+
+.hero__circuit {
+  position: absolute;
+  right: -6%;
+  top: -12%;
+  width: 62%;
+  opacity: 0.35;
+  pointer-events: none;
+  /* Flip horizontally so the dot cluster sits on the right edge and
+     traces fan inward toward the hero content; rotate slightly clockwise
+     to align the sweep with the hero's vertical axis */
+  transform: scaleX(-1) rotate(-18deg);
+  transform-origin: center center;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-light-blue);
+  margin-bottom: 24px;
+}
+.hero__eyebrow-pip {
+  width: 5px; height: 5px;
+  background: var(--color-red);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 7vw, 5.8rem);
+  font-weight: 900;
+  line-height: 0.93;
+  text-transform: uppercase;
+  color: var(--color-white);
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+.hero__title-accent { color: var(--color-red); }
+
+.hero__subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.2vw, 1.45rem);
+  font-weight: 600;
+  color: var(--color-light-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-left: 3px solid var(--color-dark-red);
+  padding-left: 16px;
+  margin-bottom: 28px;
+  line-height: 1.3;
+}
+
+.hero__body {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.hero__deadline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(138,31,46,0.2);
+  border: 1px solid rgba(183,32,37,0.45);
+  padding: 9px 18px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+}
+.hero__deadline-pip {
+  width: 7px; height: 7px;
+  background: var(--color-red);
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ============================================================
+   2. URGENCY BAR
+   ============================================================ */
+.urgency-bar {
+  background: var(--color-dark-red);
+  padding: 13px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.urgency-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.urgency-bar__item a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.urgency-bar__divider {
+  width: 1px; height: 18px;
+  background: rgba(255,255,255,0.3);
+}
+
+/* ============================================================
+   3. MISSION STATEMENT
+   ============================================================ */
+.mission {
+  background: var(--color-white);
+  padding: 100px 7%;
+}
+.mission__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.mission__eyebrow { color: var(--color-dark-red); }
+.mission__headline { color: var(--color-navy); margin-bottom: 28px; }
+
+.mission__body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #3a3a3a;
+  font-weight: 300;
+  margin-bottom: 18px;
+}
+
+.mission__tagline {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-navy);
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 2px solid var(--color-light-grey);
+}
+
+.mission__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   4. WHO SHOULD ATTEND
+   ============================================================ */
+.audience {
+  background: var(--color-navy);
+  position: relative;
+  overflow: hidden;
+  padding: 100px 7%;
+}
+
+.audience__circuit-left {
+  position: absolute;
+  left: -8%;
+  bottom: -18%;
+  width: 52%;
+  opacity: 0.14;
+  pointer-events: none;
+  /* Dot cluster anchors bottom-left; traces sweep upward-right */
+  transform: rotate(-32deg);
+  transform-origin: bottom left;
+}
+
+.audience__circuit-right {
+  position: absolute;
+  right: 8%;
+  top: 0%;
+  width: 52%;
+  opacity: 0.14;
+  pointer-events: none;
+  /* Mirror of the left: flip horizontally so dot cluster anchors top-right,
+     traces sweep downward-left — counterpart motion to the left side */
+  transform: scaleX(-1) rotate(-32deg);
+  transform-origin: top right;
+}
+
+.audience__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.audience__header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.audience__header .eyebrow {
+  color: rgba(228,235,238,0.55);
+}
+.audience__headline {
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.95;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+}
+
+.audience__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.audience__card {
+  background: rgba(255,255,255,0.055);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-top: 3px solid var(--color-dark-red);
+  padding: 44px 40px;
+}
+
+.audience__card-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-light-blue);
+  background: rgba(228,235,238,0.1);
+  padding: 4px 12px;
+  margin-bottom: 18px;
+}
+
+.audience__card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-white);
+  line-height: 1;
+  margin-bottom: 28px;
+}
+
+.audience__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.audience__list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.78);
+}
+.audience__list li::before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-red);
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   5. AGENDA
+   ============================================================ */
+.agenda {
+  background: var(--color-light-grey);
+  padding: 100px 7%;
+}
+.agenda__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.agenda__header { margin-bottom: 48px; }
+.agenda__header .eyebrow { color: var(--color-dark-red); }
+.agenda__headline { color: var(--color-navy); }
+
+/* Parallelogram tabs to match button language */
+.agenda__tabs {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+.agenda__tab {
+  background: #c8c8c8;
+  color: #555;
+  border: none;
+  cursor: pointer;
+  padding: 13px 28px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.agenda__tab:hover  { background: #b5b5b5; color: var(--color-navy); }
+.agenda__tab.active { background: var(--color-navy); color: var(--color-white); }
+
+.agenda__panel {
+  display: none;
+  background: var(--color-white);
+  padding: 44px;
+}
+.agenda__panel.active { display: block; }
+
+.agenda__day-heading {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-navy);
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--color-light-grey);
+}
+
+.agenda__sessions { display: flex; flex-direction: column; }
+
+.agenda__session {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 28px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--color-light-grey);
+}
+.agenda__session:last-child { border-bottom: none; padding-bottom: 0; }
+
+.agenda__time {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-dark-red);
+  line-height: 1.4;
+  padding-top: 3px;
+}
+
+.agenda__session-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  letter-spacing: 0.03em;
+  margin-bottom: 5px;
+}
+.agenda__session-detail {
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: #555;
+}
+
+/* Parallel track grid for Wednesday */
+.agenda__tracks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+.agenda__track {
+  background: var(--color-light-blue);
+  padding: 18px 22px;
+  border-top: 2px solid var(--color-navy);
+}
+.agenda__track-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-dark-red);
+  margin-bottom: 12px;
+}
+.agenda__track-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.agenda__track-items li {
+  font-size: 0.83rem;
+  color: var(--color-navy);
+  font-weight: 400;
+  line-height: 1.45;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-navy);
+}
+
+/* ============================================================
+   6. LOGISTICS
+   ============================================================ */
+.logistics {
+  background: var(--color-white);
+  padding: 100px 7%;
+}
+.logistics__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.logistics__header { margin-bottom: 52px; }
+.logistics__header .eyebrow { color: var(--color-dark-red); }
+.logistics__headline { color: var(--color-navy); }
+
+.logistics__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.logistics__card {
+  background: var(--color-light-blue);
+  padding: 36px 32px;
+  border-top: 3px solid var(--color-navy);
+}
+.logistics__card-icon {
+  width: 36px; height: 36px;
+  background: var(--color-navy);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.logistics__card-icon svg { width: 18px; height: 18px; fill: #fff; }
+.logistics__card-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-navy);
+  margin-bottom: 14px;
+}
+.logistics__card-body {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #333;
+}
+.logistics__card-body strong { font-weight: 600; color: var(--color-navy); }
+.logistics__card-body a     { color: var(--color-dark-red); font-weight: 600; }
+.logistics__card-body em    { font-style: normal; color: var(--color-dark-red); font-weight: 600; font-size: 0.85rem; }
+
+/* ============================================================
+   7. CLOSING CTA
+   ============================================================ */
+.cta-section {
+  background: var(--gradient-navy-red);
+  padding: 110px 7%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section__circuit-r {
+  right: -3%; top: -10%;
+  width: 42%; height: 120%;
+  opacity: 0.08;
+}
+
+.cta-section__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.cta-section__eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+.cta-section__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-white);
+  line-height: 0.95;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+.cta-section__body {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 40px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .hero { min-height: unset; padding: 80px 6% 70px; }
+  .hero__circuit { width: 110%; opacity: 0.18; right: -15%; top: -5%; }
+  .mission__inner { grid-template-columns: 1fr; gap: 48px; }
+  .mission__stack { align-items: center; width: 100%; }
+  .emphasis-shape { width: 280px; height: 140px; }
+  .emphasis-shape + .emphasis-shape { margin-top: -14px; } /* 10% of 140px */
+  .audience__grid { grid-template-columns: 1fr; }
+  .logistics__grid { grid-template-columns: 1fr; }
+  .agenda__session { grid-template-columns: 1fr; gap: 4px; }
+  .agenda__tracks { grid-template-columns: 1fr; }
+  .urgency-bar__divider { display: none; }
+  .urgency-bar { gap: 10px; }
+  .agenda__panel { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     1. HERO
+     ============================================================ -->
+<section class="hero">
+
+  <!-- Circuit board illustration — brand asset PNG -->
+  <img
+    class="hero__circuit"
+    src="Illustrations/Backgrounds/circuit-gradient-blue-lightblue.png"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <div class="hero__content">
+    <div class="hero__eyebrow">
+      <span class="hero__eyebrow-pip"></span>
+      May 18–20, 2026
+      <span class="hero__eyebrow-pip"></span>
+      Stewart Center, Purdue University
+      <span class="hero__eyebrow-pip"></span>
+      West Lafayette, Indiana
+    </div>
+
+    <h1 class="hero__title">
+      2026 <span class="hero__title-accent">SCALE</span><br>
+      Symposium<br>&amp; Annual Meeting
+    </h1>
+
+    <div class="hero__subtitle">
+      Advancing the AI-Enabled Microelectronics Workforce
+    </div>
+
+    <p class="hero__body">
+      Join top minds from academia, industry, and defense to align on building the talent pipeline critical to U.S. technology leadership.
+    </p>
+
+    <div class="hero__actions">
+      <a href="#register" class="btn btn--dark-red">Register Now</a>
+      <a href="#agenda"   class="btn btn--outline">View Full Agenda</a>
+    </div>
+
+    <div class="hero__deadline-badge">
+      <span class="hero__deadline-pip"></span>
+      Registration Deadline: May 10, 2026
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============================================================
+     2. URGENCY BAR
+     ============================================================ -->
+<div class="urgency-bar">
+  <div class="urgency-bar__item">
+    Registration Deadline: May 10, 2026
+  </div>
+  <div class="urgency-bar__divider"></div>
+  <div class="urgency-bar__item">
+    Hotel Block Expires: April 29, 2026
+  </div>
+  <div class="urgency-bar__divider"></div>
+  <div class="urgency-bar__item">
+    <a href="#hotel">Reserve Discounted Lodging &rarr;</a>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     3. MISSION STATEMENT
+     ============================================================ -->
+<section class="mission">
+  <div class="mission__inner">
+
+    <div class="mission__text">
+      <p class="eyebrow mission__eyebrow">The Moment Is Now</p>
+      <h2 class="section-headline mission__headline">
+        The Future of Defense<br>Microelectronics<br>Starts Here
+      </h2>
+      <p class="mission__body">
+        Artificial intelligence is reshaping chip design, fabrication, testing, and deployment. Defense microelectronics now demand AI fluency and secure design expertise. Tomorrow's workforce must be mission-ready from day one.
+      </p>
+      <p class="mission__body">
+        Through this public–private–academic partnership, we explore strategies to prepare future talent and strengthen America's technological advantage in an era of intelligent systems.
+      </p>
+      <p class="mission__tagline">
+        Be part of the difference &nbsp;·&nbsp; Connect &nbsp;·&nbsp; Collaborate &nbsp;·&nbsp; Lead
+      </p>
+    </div>
+
+    <!-- Emphasis shape stat stack — the brand's signature "server rack" graphic element -->
+    <div class="mission__stack">
+      <div class="emphasis-shape es--navy">
+        <span class="emphasis-shape__num">35+</span>
+        <span class="emphasis-shape__label">Partner Universities</span>
+      </div>
+      <div class="emphasis-shape es--charcoal">
+        <span class="emphasis-shape__num">1,400+</span>
+        <span class="emphasis-shape__label">Students Trained</span>
+      </div>
+      <div class="emphasis-shape es--darkred">
+        <span class="emphasis-shape__num">65%</span>
+        <span class="emphasis-shape__label">Placed in Defense Workforce</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     4. WHO SHOULD ATTEND
+     ============================================================ -->
+<section class="audience">
+
+  <!-- Circuit board illustrations — left and right bookends -->
+  <img
+    class="audience__circuit-left"
+    src="Illustrations/Backgrounds/circuit-gradient-blue-lightblue.png"
+    alt=""
+    aria-hidden="true"
+  >
+  <img
+    class="audience__circuit-right"
+    src="Illustrations/Backgrounds/circuit-gradient-blue-lightblue.png"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <div class="audience__inner">
+    <div class="audience__header">
+      <p class="eyebrow audience__header-eyebrow" style="color:rgba(228,235,238,0.5); font-family:var(--font-display); font-size:0.75rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:14px;">Who Should Attend</p>
+      <h2 class="audience__headline">
+        Built for the People<br>Who Build the Future
+      </h2>
+    </div>
+
+    <div class="audience__grid">
+
+      <!-- Faculty Card -->
+      <div class="audience__card">
+        <span class="audience__card-tag">Academic Track</span>
+        <h3 class="audience__card-title">For Faculty &amp;<br>Researchers</h3>
+        <ul class="audience__list">
+          <li>Join SCALE colleagues to shape how AI transforms defense microelectronics education and research</li>
+          <li>Share innovations and align curricula with national priorities</li>
+          <li>Build collaborations that prepare the next-generation defense workforce</li>
+        </ul>
+        <a href="#register" class="btn btn--dark-red" style="font-size:0.82rem;">Register as Faculty</a>
+      </div>
+
+      <!-- Employers Card -->
+      <div class="audience__card">
+        <span class="audience__card-tag">Industry &amp; Government Track</span>
+        <h3 class="audience__card-title">For Employers &amp;<br>Government Partners</h3>
+        <ul class="audience__list">
+          <li>Connect with top faculty and researchers shaping the AI-enabled microelectronics workforce</li>
+          <li>Engage on talent pipelines, upskilling, and high-impact partnerships</li>
+          <li>Strengthen U.S. innovation and supply-chain resilience</li>
+        </ul>
+        <a href="#register" class="btn btn--dark-red" style="font-size:0.82rem;">Register as Employer</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     5. AGENDA
+     ============================================================ -->
+<section class="agenda" id="agenda">
+  <div class="agenda__inner">
+
+    <div class="agenda__header">
+      <p class="eyebrow" style="color:var(--color-dark-red);">Program Schedule</p>
+      <h2 class="section-headline agenda__headline">Three Days. One Mission.</h2>
+    </div>
+
+    <div class="agenda__tabs" role="tablist">
+      <button class="agenda__tab active" onclick="showDay('day1',this)" role="tab" aria-selected="true">Mon, May 18</button>
+      <button class="agenda__tab"        onclick="showDay('day2',this)" role="tab" aria-selected="false">Tue, May 19</button>
+      <button class="agenda__tab"        onclick="showDay('day3',this)" role="tab" aria-selected="false">Wed, May 20</button>
+    </div>
+
+    <!-- DAY 1 -->
+    <div class="agenda__panel active" id="day1" role="tabpanel">
+      <div class="agenda__day-heading">Monday, May 18, 2026 &mdash; Arrival &amp; Welcome</div>
+      <div class="agenda__sessions">
+        <div class="agenda__session">
+          <div class="agenda__time">6:00&ndash;8:00 PM</div>
+          <div>
+            <div class="agenda__session-title">Welcome Reception</div>
+            <div class="agenda__session-detail">Union Club Hotel &middot; Kick off the Symposium with informal networking hosted by SCALE Leadership. All attendees welcome.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="agenda__panel" id="day2" role="tabpanel">
+      <div class="agenda__day-heading">Tuesday, May 19, 2026 &mdash; Full Program Day</div>
+      <div class="agenda__sessions">
+
+        <div class="agenda__session">
+          <div class="agenda__time">8:30&ndash;9:00 AM</div>
+          <div>
+            <div class="agenda__session-title">Breakfast &amp; Networking</div>
+            <div class="agenda__session-detail">All participants &middot; Informal networking by vertical: Radiation Effects, Heterogeneous Integration / Advanced Packaging, System on Chip, Trusted AI Hardware, Compound Semiconductors</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">9:00&ndash;9:20 AM</div>
+          <div>
+            <div class="agenda__session-title">Welcome &amp; Mission Framing</div>
+            <div class="agenda__session-detail">Welcome remarks from SCALE Leadership &middot; Overview of SCALE's mission, the defense microelectronics ecosystem, and why AI-enabled workforce development is a critical national priority</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">9:20&ndash;10:10 AM</div>
+          <div>
+            <div class="agenda__session-title">Opening Keynote</div>
+            <div class="agenda__session-detail">AI and the Future of Defense Microelectronics</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">10:25&ndash;11:25 AM</div>
+          <div>
+            <div class="agenda__session-title">AI in Practice Panel</div>
+            <div class="agenda__session-detail">Industry and Faculty Perspectives</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">11:25 AM&ndash;12:30 PM</div>
+          <div>
+            <div class="agenda__session-title">AI Application Spotlights by Vertical</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">12:30&ndash;1:30 PM</div>
+          <div>
+            <div class="agenda__session-title">Lunch</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">1:30&ndash;2:30 PM</div>
+          <div>
+            <div class="agenda__session-title">Technical Vertical Breakouts</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">2:30&ndash;3:30 PM</div>
+          <div>
+            <div class="agenda__session-title">Designing AI-Enabled Learning Experiences</div>
+            <div class="agenda__session-detail">Mixed faculty–employer working session aligned to authentic work projects</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">3:45&ndash;4:45 PM</div>
+          <div>
+            <div class="agenda__session-title">Working Groups Reboot</div>
+            <div class="agenda__session-detail">Overview of standing and emerging working groups: Career Pathways, Educational Standards, AWG, Student Recruitment &amp; Retention</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">4:45&ndash;5:30 PM</div>
+          <div>
+            <div class="agenda__session-title">Informal Networking</div>
+            <div class="agenda__session-detail">Optional</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">6:00 PM</div>
+          <div>
+            <div class="agenda__session-title">Dinner</div>
+            <div class="agenda__session-detail">Ripple &amp; Company</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="agenda__panel" id="day3" role="tabpanel">
+      <div class="agenda__day-heading">Wednesday, May 20, 2026 &mdash; Parallel Tracks &amp; Closing</div>
+      <div class="agenda__sessions">
+
+        <div class="agenda__session">
+          <div class="agenda__time">8:30&ndash;9:00 AM</div>
+          <div>
+            <div class="agenda__session-title">Breakfast</div>
+            <div class="agenda__session-detail">All participants</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">9:00 AM&ndash;12:00 PM</div>
+          <div>
+            <div class="agenda__session-title">Parallel Tracks</div>
+            <div class="agenda__tracks">
+              <div class="agenda__track">
+                <div class="agenda__track-label">Faculty Track</div>
+                <ul class="agenda__track-items">
+                  <li>Meeting Standards &amp; Ensuring Quality</li>
+                  <li>Curriculum Mapping</li>
+                  <li>Future of SCALE</li>
+                </ul>
+              </div>
+              <div class="agenda__track">
+                <div class="agenda__track-label">Employer Track</div>
+                <ul class="agenda__track-items">
+                  <li>SCALE Program Update</li>
+                  <li>Working Groups for Employers: General Session</li>
+                  <li>Student Work Performance Pilot Survey: Results &amp; Insights</li>
+                  <li>Open Discussion &amp; Next Steps</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">12:15&ndash;12:30 PM</div>
+          <div>
+            <div class="agenda__session-title">Closing — All Participants</div>
+          </div>
+        </div>
+
+        <div class="agenda__session">
+          <div class="agenda__time">12:30 PM</div>
+          <div>
+            <div class="agenda__session-title">Boxed Lunches &amp; Departure</div>
+            <div class="agenda__session-detail">Lunches available to take on the go or enjoy on site &middot; Optional working time for those who wish to continue planning or meet with partners</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     6. LOGISTICS & REGISTRATION
+     ============================================================ -->
+<section class="logistics" id="hotel">
+  <div class="logistics__inner">
+
+    <div class="logistics__header">
+      <p class="eyebrow" style="color:var(--color-dark-red);">Plan Your Visit</p>
+      <h2 class="section-headline" style="color:var(--color-navy);">Logistics &amp; Registration</h2>
+    </div>
+
+    <div class="logistics__grid">
+
+      <!-- Registration -->
+      <div class="logistics__card">
+        <div class="logistics__card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4"/></svg>
+        </div>
+        <div class="logistics__card-title">Registration</div>
+        <div class="logistics__card-body">
+          <strong>Deadline: May 10, 2026</strong><br><br>
+          Registration links have been sent via email. A confirmation email with full logistical details will follow upon completion.<br><br>
+          For assistance contact <a href="mailto:afordham@purdue.edu?subject=SCALE Symposium Registration">Ashley Fordham</a>.
+        </div>
+      </div>
+
+      <!-- Hotel -->
+      <div class="logistics__card">
+        <div class="logistics__card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="logistics__card-title">Preferred Hotel</div>
+        <div class="logistics__card-body">
+          <strong>The Union Club Hotel</strong><br>
+          Purdue University &middot; West Lafayette, IN<br><br>
+          Use booking code <strong>SPI</strong> for the SCALE rate.<br><br>
+          <a href="https://www.marriott.com/en-us/hotels/indwk-the-union-club-hotel-at-purdue-university-autograph-collection/overview/" target="_blank">Book Online</a> or call <strong>1-888-236-2427</strong><br><br>
+          <em>Hotel block expires April 29, 2026</em>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="logistics__card">
+        <div class="logistics__card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="logistics__card-title">Program Questions</div>
+        <div class="logistics__card-body">
+          For program content and session information:<br><br>
+          <a href="mailto:mckinltl@purdue.edu?subject=SCALE Symposium Program">Dr. Tom McKinley</a><br>
+          Conference Organizer<br><br>
+          General inquiries:<br>
+          <a href="mailto:scale@purdue.edu">scale@purdue.edu</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     7. CLOSING CTA
+     ============================================================ -->
+<section class="cta-section" id="register">
+
+  <svg class="circuit-bg cta-section__circuit-r" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">
+    <g stroke="white" stroke-width="1.8" fill="white">
+      <polyline points="0,30 240,30 360,150 800,150"/>
+      <circle cx="0"   cy="30"  r="5"/>
+      <circle cx="800" cy="150" r="5"/>
+      <polyline points="0,110 220,110 350,240 800,240"/>
+      <circle cx="0"   cy="110" r="5"/>
+      <circle cx="800" cy="240" r="5"/>
+      <polyline points="0,200 250,200 380,330 800,330"/>
+      <circle cx="0"   cy="200" r="5"/>
+      <circle cx="800" cy="330" r="5"/>
+      <polyline points="0,290 200,290 340,430 800,430"/>
+      <circle cx="0"   cy="290" r="5"/>
+      <circle cx="800" cy="430" r="5"/>
+      <polyline points="0,380 230,380 360,510 800,510"/>
+      <circle cx="0"   cy="380" r="5"/>
+      <circle cx="800" cy="510" r="5"/>
+    </g>
+  </svg>
+
+  <div class="cta-section__inner">
+    <p class="cta-section__eyebrow">SCALE 2026 &nbsp;&middot;&nbsp; May 18–20 &nbsp;&middot;&nbsp; West Lafayette, IN</p>
+    <h2 class="cta-section__headline">
+      Don't Wait to<br>Make a Difference
+    </h2>
+    <p class="cta-section__body">
+      Sign up now for SCALE 2026 and join the national effort to build America's AI-enabled defense microelectronics workforce.
+    </p>
+    <!-- Replace href="#" with the live registration URL when available -->
+    <a href="#" class="btn btn--white" style="font-size:0.95rem; padding: 1em 3em;">
+      Sign Up for SCALE 2026 &rarr;
+    </a>
+  </div>
+
+</section>
+
+
+<!-- ============================================================
+     JAVASCRIPT — Agenda tab switcher
+     ============================================================ -->
+<script>
+function showDay(dayId, btn) {
+  document.querySelectorAll('.agenda__panel').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  document.querySelectorAll('.agenda__tab').forEach(function(t) {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  document.getElementById(dayId).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+}
+</script>
+
+</body>
+</html>
