@@ -9,6 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 
+/* fix for squarespaces gutters */
+.fe-69f2907508964e2f2d7f350c {
+  --cell-max-width: 100%;
+  --grid-gutter: auto;
+}
+.fe-9awyuckig0h {
+  display: block;
+}
+/* end fix for squarespace */
+
 /* ============================================================
    SCALE DESIGN SYSTEM — CSS CUSTOM PROPERTIES
    ============================================================ */
@@ -135,7 +145,7 @@ a { text-decoration: none; }
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.95);
   margin-top: 3px;
 }
 .es--navy    { background: var(--color-navy); }
@@ -516,6 +526,18 @@ a { text-decoration: none; }
   margin-bottom: 0;
   flex-wrap: wrap;
 }
+
+@media (max-width: 499px) {
+  .agenda__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 4px;
+  }
+  .agenda__tabs::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+  .agenda__tab { flex-shrink: 0; }
+}
 .agenda__tab {
   background: #c8c8c8;
   color: #555;
@@ -772,6 +794,29 @@ a { text-decoration: none; }
 .cta-section .btn { font-size: 0.95rem; padding: 1em 3em; }
 
 /* ============================================================
+   ACCESSIBILITY — Focus styles
+   ============================================================ */
+
+/* Global: clear browser default, set our own visible ring */
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* clip-path clips outline/box-shadow — use filter drop-shadow instead,
+   which renders after compositing and is unaffected by clip-path */
+.btn:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 5px var(--color-blue)) drop-shadow(0 0 2px rgba(255,255,255,0.9));
+}
+.agenda__tab:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 4px var(--color-navy)) drop-shadow(0 0 2px var(--color-blue));
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
@@ -843,7 +888,7 @@ a { text-decoration: none; }
     </p>
 
     <div class="hero__actions">
-      <a href="#register" class="btn btn--dark-red">Register Now</a>
+      <a href="#register-logistics" class="btn btn--dark-red">Check Registration Details</a>
       <a href="#agenda"   class="btn btn--outline">View Full Agenda</a>
     </div>
 
@@ -865,7 +910,7 @@ a { text-decoration: none; }
   </div>
   <div class="urgency-bar__divider"></div>
   <div class="urgency-bar__item">
-    <a href="#hotel">Reserve Lodging &rarr;</a>
+    <a href="#register-logistics">Reserve Lodging &rarr;</a>
   </div>
 </div>
 
@@ -882,10 +927,10 @@ a { text-decoration: none; }
         The Future of Defense<br>Microelectronics<br>Starts Here
       </h2>
       <p class="mission__body">
-        Artificial intelligence is reshaping chip design, fabrication, testing, and deployment. Defense microelectronics now demand AI fluency and secure design expertise. Tomorrow's workforce must be mission-ready from day one.
+        Artificial intelligence is reshaping chip design, fabrication, testing and deployment. Defense microelectronics increasingly demand AI fluency in areas like secure design. Tomorrow’s engineering workforce must be mission-ready from day one, which now means building on traditional areas of study to incorporate cutting-edge tools.
       </p>
       <p class="mission__body">
-        Through this public–private–academic partnership, we explore strategies to prepare future talent and strengthen America's technological advantage in an era of intelligent systems.
+        Through SCALE, the only US defense microelectronics public–private–academic partnership, we will explore strategies to prepare future talent and strengthen America’s technological advantage in an era of intelligent systems.
       </p>
       <p class="mission__tagline">
         Be part of the difference &nbsp;·&nbsp; Connect &nbsp;·&nbsp; Collaborate &nbsp;·&nbsp; Lead
@@ -899,12 +944,12 @@ a { text-decoration: none; }
         <span class="emphasis-shape__label">Partner Universities</span>
       </div>
       <div class="emphasis-shape es--charcoal">
-        <span class="emphasis-shape__num">1,400+</span>
+        <span class="emphasis-shape__num">1,700+</span>
         <span class="emphasis-shape__label">Students Trained</span>
       </div>
       <div class="emphasis-shape es--darkred">
-        <span class="emphasis-shape__num">65%</span>
-        <span class="emphasis-shape__label">Placed in Defense Workforce</span>
+        <span class="emphasis-shape__num">80%</span>
+        <span class="emphasis-shape__label">Placed in Defense Work or Graduate School</span>
       </div>
     </div>
 
@@ -950,7 +995,7 @@ a { text-decoration: none; }
           <li>Share innovations and align curricula with national priorities</li>
           <li>Build collaborations that prepare the next-generation defense workforce</li>
         </ul>
-        <a href="#register" class="btn btn--dark-red">Register as Faculty</a>
+        <!-- <a href="#register" class="btn btn--dark-red">Register as Faculty</a> -->
       </div>
 
       <!-- Employers Card -->
@@ -962,7 +1007,7 @@ a { text-decoration: none; }
           <li>Engage on talent pipelines, upskilling, and high-impact partnerships</li>
           <li>Strengthen U.S. innovation and supply-chain resilience</li>
         </ul>
-        <a href="#register" class="btn btn--dark-red">Register as Employer</a>
+        <!-- <a href="#register" class="btn btn--dark-red">Register as Employer</a> -->
       </div>
 
     </div>
@@ -981,14 +1026,14 @@ a { text-decoration: none; }
       <h2 class="section-headline agenda__headline">Two Days. One Mission.</h2>
     </div>
 
-    <div class="agenda__tabs" role="tablist">
-      <button class="agenda__tab active" onclick="showDay('day1',this)" role="tab" aria-selected="true">Mon, May 18</button>
-      <button class="agenda__tab"        onclick="showDay('day2',this)" role="tab" aria-selected="false">Tue, May 19</button>
-      <button class="agenda__tab"        onclick="showDay('day3',this)" role="tab" aria-selected="false">Wed, May 20</button>
+    <div class="agenda__tabs" role="tablist" aria-label="Symposium days">
+      <button class="agenda__tab active" id="tab-day1" onclick="showDay('day1',this)" role="tab" aria-selected="true"  aria-controls="day1">Mon, May 18</button>
+      <button class="agenda__tab"        id="tab-day2" onclick="showDay('day2',this)" role="tab" aria-selected="false" aria-controls="day2">Tue, May 19</button>
+      <button class="agenda__tab"        id="tab-day3" onclick="showDay('day3',this)" role="tab" aria-selected="false" aria-controls="day3">Wed, May 20</button>
     </div>
 
     <!-- DAY 1 -->
-    <div class="agenda__panel active" id="day1" role="tabpanel">
+    <div class="agenda__panel active" id="day1" role="tabpanel" aria-labelledby="tab-day1" aria-hidden="false">
       <div class="agenda__day-heading">Monday, May 18, 2026 &mdash; Arrival &amp; Welcome</div>
       <div class="agenda__sessions">
         <div class="agenda__session">
@@ -1002,7 +1047,7 @@ a { text-decoration: none; }
     </div>
 
     <!-- DAY 2 -->
-    <div class="agenda__panel" id="day2" role="tabpanel">
+    <div class="agenda__panel" id="day2" role="tabpanel" aria-labelledby="tab-day2" aria-hidden="true">
       <div class="agenda__day-heading">Tuesday, May 19, 2026 &mdash; Full Program Day</div>
       <div class="agenda__sessions">
 
@@ -1095,7 +1140,7 @@ a { text-decoration: none; }
     </div>
 
     <!-- DAY 3 -->
-    <div class="agenda__panel" id="day3" role="tabpanel">
+    <div class="agenda__panel" id="day3" role="tabpanel" aria-labelledby="tab-day3" aria-hidden="true">
       <div class="agenda__day-heading">Wednesday, May 20, 2026 &mdash; Parallel Tracks &amp; Closing</div>
       <div class="agenda__sessions">
 
@@ -1158,7 +1203,7 @@ a { text-decoration: none; }
 <!-- ============================================================
      6. LOGISTICS & REGISTRATION
      ============================================================ -->
-<section class="logistics" id="hotel">
+<section class="logistics" id="register-logistics">
   <div class="logistics__inner">
 
     <div class="logistics__header">
@@ -1171,21 +1216,21 @@ a { text-decoration: none; }
 
       <div class="logistics__card">
         <div class="logistics__card-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4"/></svg>
         </div>
-        <div class="logistics__card-title">Registration</div>
+        <h3 class="logistics__card-title">Registration</h3>
         <div class="logistics__card-body">
           <strong>Deadline: May 10, 2026</strong><br><br>
-          Registration links have been sent via email. A confirmation email with full logistical details will follow upon completion.<br><br>
-          For assistance contact <a href="mailto:afordham@purdue.edu?subject=SCALE Symposium Registration">Ashley Fordham</a>.
+          For security reasons, registration links for preselected attendees have been sent via email <strong>(please check your spam folder)</strong>. A confirmation email with full logistical details will follow upon completion of registration.<br><br>
+          To request a registration link or for general assistance contact <a href="mailto:afordham@purdue.edu?subject=SCALE Symposium Registration">Ashley Fordham</a> or <a href="mailto:mckinltl@purdue.edu?subject=SCALE Symposium Registration">Dr. Thomas McKinley</a>.
         </div>
       </div>
 
       <div class="logistics__card">
         <div class="logistics__card-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
-        <div class="logistics__card-title">Program Questions</div>
+        <h3 class="logistics__card-title">Program Questions</h3>
         <div class="logistics__card-body">
           For program content and session information:<br><br>
           <a href="mailto:mckinltl@purdue.edu?subject=SCALE Symposium Program">Dr. Tom McKinley</a><br>
@@ -1204,44 +1249,44 @@ a { text-decoration: none; }
       <!-- Union Club Hotel -->
       <div class="logistics__card">
         <div class="logistics__card-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <div class="logistics__card-title">Union Club Hotel</div>
+        <h3 class="logistics__card-title">Union Club Hotel</h3>
         <div class="logistics__card-body">
           Mention <em>&ldquo;SCALE Symposium&rdquo;</em> when booking for a conference rate of <strong>$199 + tax/night</strong>. Rate honored based on availability.
           <br><br>
           <strong>On campus &mdash; closest to Stewart Center</strong>
         </div>
         <div class="logistics__card-booking">
-          <a href="https://www.marriott.com/en-us/hotels/indwk-the-union-club-hotel-at-purdue-university-autograph-collection/overview/" target="_blank">Book Online</a> &nbsp;&middot;&nbsp; <strong>1-888-236-2427</strong>
+          <a href="https://www.marriott.com/en-us/hotels/indwk-the-union-club-hotel-at-purdue-university-autograph-collection/overview/" target="_blank" rel="noopener noreferrer" aria-label="Book Union Club Hotel online (opens in new tab)">Book Online</a> &nbsp;&middot;&nbsp; <strong>1-888-236-2427</strong>
         </div>
       </div>
 
       <!-- Hilton Garden Inn -->
       <div class="logistics__card">
         <div class="logistics__card-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <div class="logistics__card-title">Hilton Garden Inn</div>
+        <h3 class="logistics__card-title">Hilton Garden Inn</h3>
         <div class="logistics__card-body">
           Use group code <strong>92V</strong> for a conference rate of <strong>$139/night</strong>. Rate honored based on availability.
         </div>
         <div class="logistics__card-booking">
-          <a href="https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=LAFWLGI&arrivalDate=2026-05-18&departureDate=2026-05-20&groupCode=92V&room1NumAdults=1&cid=OM%2CWW%2CHILTONLINK%2CEN%2CDirectLink" target="_blank">Book Online</a> &nbsp;&middot;&nbsp; <strong>765-743-2100</strong>
+          <a href="https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=LAFWLGI&arrivalDate=2026-05-18&departureDate=2026-05-20&groupCode=92V&room1NumAdults=1&cid=OM%2CWW%2CHILTONLINK%2CEN%2CDirectLink" target="_blank" rel="noopener noreferrer" aria-label="Book Hilton Garden Inn online (opens in new tab)">Book Online</a> &nbsp;&middot;&nbsp; <strong>765-743-2100</strong>
         </div>
       </div>
 
       <!-- Hampton Inn & Suites -->
       <div class="logistics__card">
         <div class="logistics__card-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <div class="logistics__card-title">Hampton Inn &amp; Suites</div>
+        <h3 class="logistics__card-title">Hampton Inn &amp; Suites</h3>
         <div class="logistics__card-body">
           Mention <em>&ldquo;SCALE Symposium&rdquo;</em> when booking for a conference rate of <strong>$149 + tax/night</strong>. Rate honored based on availability.
         </div>
         <div class="logistics__card-booking">
-          <a href="https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=LAFWEHX&arrivalDate=2026-05-18&departureDate=2026-05-20&groupCode=CHHSSM&room1NumAdults=1&cid=OM%2CWW%2CHILTONLINK%2CEN%2CDirectLink" target="_blank">Book Online</a> &nbsp;&middot;&nbsp; <strong>765-269-8000</strong>
+          <a href="https://www.hilton.com/en/book/reservation/rooms/?ctyhocn=LAFWEHX&arrivalDate=2026-05-18&departureDate=2026-05-20&groupCode=CHHSSM&room1NumAdults=1&cid=OM%2CWW%2CHILTONLINK%2CEN%2CDirectLink" target="_blank" rel="noopener noreferrer" aria-label="Book Hampton Inn &amp; Suites online (opens in new tab)">Book Online</a> &nbsp;&middot;&nbsp; <strong>765-269-8000</strong>
         </div>
       </div>
 
@@ -1253,7 +1298,7 @@ a { text-decoration: none; }
 <!-- ============================================================
      7. CLOSING CTA
      ============================================================ -->
-<section class="cta-section" id="register">
+<section class="cta-section">
 
   <img class="circuit-bg cta-section__circuit-l" src="Illustrations/Backgrounds/circuit-white.png" alt="" aria-hidden="true">
   <img class="circuit-bg cta-section__circuit-r" src="Illustrations/Backgrounds/circuit-white.png" alt="" aria-hidden="true">
@@ -1264,11 +1309,11 @@ a { text-decoration: none; }
       Don't Wait to<br>Make a Difference
     </h2>
     <p class="cta-section__body">
-      Sign up now for the 2026 SCALE Symposium & Annual Meeting and join the national effort to build America's AI-enabled defense microelectronics workforce.
+      Complete your registration for the 2026 SCALE Symposium & Annual Meeting and join the national effort to build America's AI-enabled defense microelectronics workforce.
     </p>
     <!-- Replace href="#" with the live registration URL when available -->
-    <a href="#" class="btn btn--white">
-      Sign Up for SCALE 2026 &rarr;
+    <a href="#register-logistics" class="btn btn--white">
+      Check Registration Details for SCALE 2026 &rarr;
     </a>
   </div>
 
@@ -1282,12 +1327,15 @@ a { text-decoration: none; }
 function showDay(dayId, btn) {
   document.querySelectorAll('.agenda__panel').forEach(function(p) {
     p.classList.remove('active');
+    p.setAttribute('aria-hidden', 'true');
   });
   document.querySelectorAll('.agenda__tab').forEach(function(t) {
     t.classList.remove('active');
     t.setAttribute('aria-selected', 'false');
   });
-  document.getElementById(dayId).classList.add('active');
+  var panel = document.getElementById(dayId);
+  panel.classList.add('active');
+  panel.setAttribute('aria-hidden', 'false');
   btn.classList.add('active');
   btn.setAttribute('aria-selected', 'true');
 }
