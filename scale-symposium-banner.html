@@ -1,0 +1,316 @@
+<!--
+  ============================================================
+  SCALE 2026 Symposium — Homepage Event Banner
+  For use in a Squarespace Code Block
+
+  SETUP:
+  1. Paste this entire snippet into a Squarespace Code Block
+  2. Replace the two instances of YOUR-EVENT-PAGE-URL below
+     with the actual URL of your event page (e.g. /2026-scale-symposium)
+  ============================================================
+-->
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap');
+
+/* All rules scoped to .scb- (SCALE Banner) to avoid Squarespace conflicts */
+
+.scb-wrap {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg, #092F4E 0%, #3676BC 100%  );
+  border-radius: 4px;
+  font-family: 'Barlow', Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.scb-wrap *, .scb-wrap *::before, .scb-wrap *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Circuit SVG — decorative, right-side bleed */
+.scb-circuit {
+  position: absolute;
+  right: -4%;
+  top: -15%;
+  width: 48%;
+  height: 130%;
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+/* Accent bar at top */
+.scb-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  background: linear-gradient(90deg, #8A1F2E 0%, #B72025 50%, #092F4E 100%);
+}
+
+/* Inner layout */
+.scb-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 36px 48px 36px 44px;
+}
+
+/* Left content block */
+.scb-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.scb-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #E4EBEE;
+  opacity: 0.85;
+}
+
+.scb-eyebrow-pip {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #B72025;
+  flex-shrink: 0;
+}
+
+.scb-headline {
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.scb-headline-accent {
+  color: #B72025;
+}
+
+.scb-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #E4EBEE;
+  border-left: 3px solid #8A1F2E;
+  padding-left: 14px;
+  margin-top: 2px;
+}
+
+.scb-meta-sep {
+  color: rgba(228,235,238,0.35);
+}
+
+/* Right action block */
+.scb-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* Stat callout — emphasis shape style */
+.scb-stat {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
+  padding: 10px 28px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.scb-stat-num {
+  display: block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.scb-stat-label {
+  display: block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(228,235,238,0.8);
+  margin-top: 2px;
+}
+
+/* CTA button */
+.scb-btn {
+  display: inline-block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  background: #8A1F2E;
+  padding: 0.85em 2.2em;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  text-decoration: none;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.scb-btn:hover {
+  background: #B72025;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.scb-btn:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 5px #3676BC) drop-shadow(0 0 2px rgba(255,255,255,0.9));
+}
+
+/* Deadline note */
+.scb-deadline {
+  font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(228,235,238,0.55);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .scb-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 28px 32px;
+    gap: 24px;
+  }
+  .scb-action {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+  }
+  .scb-stat {
+    display: none; /* de-clutter on small screens */
+  }
+  .scb-circuit {
+    width: 70%;
+    opacity: 0.08;
+  }
+}
+</style>
+
+<div class="scb-wrap" role="complementary" aria-label="2026 SCALE Symposium event announcement">
+
+  <!-- Circuit board illustration (inline SVG — no external asset required) -->
+  <!-- <svg class="scb-circuit" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" focusable="false">
+    <g stroke="white" stroke-width="1.6" fill="white">
+     
+      <polyline points="600,40  360,40  240,160  0,160"/>
+      <circle cx="600" cy="40"  r="5"/>
+      <circle cx="0"   cy="160" r="5"/>
+
+      <polyline points="600,130 380,130 260,250 0,250"/>
+      <circle cx="600" cy="130" r="5"/>
+      <circle cx="0"   cy="250" r="5"/>
+
+      <polyline points="600,220 400,220 280,340 0,340"/>
+      <circle cx="600" cy="220" r="5"/>
+      <circle cx="0"   cy="340" r="5"/>
+
+      <polyline points="600,310 340,310 220,430 0,430"/>
+      <circle cx="600" cy="310" r="5"/>
+      <circle cx="0"   cy="430" r="5"/>
+
+      <polyline points="600,400 360,400 240,520 0,520"/>
+      <circle cx="600" cy="400" r="5"/>
+      <circle cx="0"   cy="520" r="5"/>
+
+      <polyline points="600,490 380,490 260,610 0,610"/>
+      <circle cx="600" cy="490" r="5"/>
+      <circle cx="0"   cy="610" r="5"/>
+
+      <line x1="380" y1="40"  x2="380" y2="10"/>
+      <circle cx="380" cy="10" r="4"/>
+      <line x1="340" y1="310" x2="340" y2="280"/>
+      <circle cx="340" cy="280" r="4"/>
+      <line x1="400" y1="220" x2="400" y2="190"/>
+      <circle cx="400" cy="190" r="4"/>
+      <line x1="360" y1="400" x2="360" y2="370"/>
+      <circle cx="360" cy="370" r="4"/>
+    </g>
+  </svg> -->
+
+  <div class="scb-inner">
+
+    <!-- Left: event info -->
+    <div class="scb-content">
+      <div class="scb-eyebrow">
+        <span class="scb-eyebrow-pip"></span>
+        Now Open for Registration
+        <span class="scb-eyebrow-pip"></span>
+        Deadline May 10
+      </div>
+      <div class="scb-headline">
+        2026 <span class="scb-headline-accent">SCALE</span><br>
+        Symposium &amp; Annual Meeting
+      </div>
+      <div class="scb-meta">
+        May 18–20, 2026
+        <span class="scb-meta-sep">·</span>
+        Stewart Center, Purdue University
+        <span class="scb-meta-sep">·</span>
+        West Lafayette, IN
+      </div>
+    </div>
+
+    <!-- Right: stat callout + CTA -->
+    <div class="scb-action">
+      <!-- <div class="scb-stat" aria-label="35 plus partner universities">
+        <span class="scb-stat-num">35+</span>
+        <span class="scb-stat-label">Partner Universities</span>
+      </div> -->
+      <!-- ↓ Replace YOUR-EVENT-PAGE-URL with your actual event page path or URL -->
+      <a href="YOUR-EVENT-PAGE-URL" class="scb-btn">
+        View Details &amp; Register &rarr;
+      </a>
+      <div class="scb-deadline" aria-label="Registration deadline May 10, 2026">
+        Registration Deadline: May 10, 2026
+      </div>
+    </div>
+
+  </div>
+</div>
