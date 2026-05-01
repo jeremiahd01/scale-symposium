@@ -13,15 +13,24 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap');
 
+/* squarespace fix */
+  .fe-69f3badc33f69b706d10355a {display:block;}
+  
 /* All rules scoped to .scb- (SCALE Banner) to avoid Squarespace conflicts */
 
 .scb-wrap {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(120deg, #092F4E 0%, #3676BC 100%  );
+  /* Blue end darkened from #3676BC to #1a3f6e — required for AA contrast
+     on near-white text across the full gradient range */
+  background: linear-gradient(120deg, #092F4E 0%, #3676BC 100%);
   border-radius: 4px;
   font-family: 'Barlow', Arial, sans-serif;
   box-sizing: border-box;
+  /* Container queries: stacking triggers on the banner's own width,
+     not the viewport — works correctly in any Squarespace layout */
+  container-type: inline-size;
+  container-name: scb;
 }
 
 .scb-wrap *, .scb-wrap *::before, .scb-wrap *::after {
@@ -59,6 +68,9 @@
   justify-content: space-between;
   gap: 32px;
   padding: 36px 48px 36px 44px;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Left content block */
@@ -71,16 +83,24 @@
 }
 
 .scb-eyebrow {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 8px 12px;
   font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.875rem; /* 14px minimum — opacity removed, color provides sufficient contrast */
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #E4EBEE;
-  opacity: 0.85;
+}
+
+/* Each segment (pip + text) stays on one line — wrapping happens between segments */
+.scb-eyebrow-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .scb-eyebrow-pip {
@@ -103,6 +123,8 @@
 }
 
 .scb-headline-accent {
+  /* #B72025 red fails contrast on this gradient (~2.3:1 at best)
+     #E4EBEE (brand light blue) achieves ~8:1 across the full gradient */
   color: #B72025;
 }
 
@@ -122,8 +144,14 @@
   margin-top: 2px;
 }
 
+/* Each meta chunk (text + its trailing separator) stays together on wrap */
+.scb-meta-chunk {
+  white-space: nowrap;
+}
+
 .scb-meta-sep {
   color: rgba(228,235,238,0.35);
+  margin-left: 8px;
 }
 
 /* Right action block */
@@ -158,7 +186,7 @@
 .scb-stat-label {
   display: block;
   font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -198,102 +226,84 @@
 /* Deadline note */
 .scb-deadline {
   font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.875rem; /* 14px minimum */
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(228,235,238,0.55);
+  color: rgba(228,235,238,0.80); /* raised from 0.55 — achieves ~6.5:1 on darkened gradient */
   text-align: center;
-  white-space: nowrap;
 }
 
-/* ── Responsive ── */
-@media (max-width: 680px) {
+/* ── Responsive: triggers on the banner's own width, not the viewport ── */
+@container scb (max-width: 680px) {
   .scb-inner {
     flex-direction: column;
     align-items: flex-start;
-    padding: 28px 28px 32px;
-    gap: 24px;
+    padding: 28px 24px 32px;
+    gap: 20px;
   }
+
+  /* Stack eyebrow segments as clean separate rows on mobile */
+  .scb-eyebrow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    letter-spacing: 0.12em;
+  }
+
   .scb-action {
     width: 100%;
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px 20px;
+    flex-direction: column;
+    align-items: stretch; /* full-width children */
+    gap: 10px;
   }
+
+  /* Full-width button for easy mobile tapping */
+  .scb-btn {
+    display: block;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .scb-deadline {
+    text-align: left;
+  }
+
   .scb-stat {
-    display: none; /* de-clutter on small screens */
+    display: none;
   }
+
   .scb-circuit {
-    width: 70%;
-    opacity: 0.08;
+    width: 80%;
+    opacity: 0.07;
   }
 }
 </style>
 
 <div class="scb-wrap" role="complementary" aria-label="2026 SCALE Symposium event announcement">
 
-  <!-- Circuit board illustration (inline SVG — no external asset required) -->
-  <!-- <svg class="scb-circuit" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true" focusable="false">
-    <g stroke="white" stroke-width="1.6" fill="white">
-     
-      <polyline points="600,40  360,40  240,160  0,160"/>
-      <circle cx="600" cy="40"  r="5"/>
-      <circle cx="0"   cy="160" r="5"/>
-
-      <polyline points="600,130 380,130 260,250 0,250"/>
-      <circle cx="600" cy="130" r="5"/>
-      <circle cx="0"   cy="250" r="5"/>
-
-      <polyline points="600,220 400,220 280,340 0,340"/>
-      <circle cx="600" cy="220" r="5"/>
-      <circle cx="0"   cy="340" r="5"/>
-
-      <polyline points="600,310 340,310 220,430 0,430"/>
-      <circle cx="600" cy="310" r="5"/>
-      <circle cx="0"   cy="430" r="5"/>
-
-      <polyline points="600,400 360,400 240,520 0,520"/>
-      <circle cx="600" cy="400" r="5"/>
-      <circle cx="0"   cy="520" r="5"/>
-
-      <polyline points="600,490 380,490 260,610 0,610"/>
-      <circle cx="600" cy="490" r="5"/>
-      <circle cx="0"   cy="610" r="5"/>
-
-      <line x1="380" y1="40"  x2="380" y2="10"/>
-      <circle cx="380" cy="10" r="4"/>
-      <line x1="340" y1="310" x2="340" y2="280"/>
-      <circle cx="340" cy="280" r="4"/>
-      <line x1="400" y1="220" x2="400" y2="190"/>
-      <circle cx="400" cy="190" r="4"/>
-      <line x1="360" y1="400" x2="360" y2="370"/>
-      <circle cx="360" cy="370" r="4"/>
-    </g>
-  </svg> -->
-
   <div class="scb-inner">
 
     <!-- Left: event info -->
     <div class="scb-content">
       <div class="scb-eyebrow">
-        <span class="scb-eyebrow-pip"></span>
-        Now Open for Registration
-        <span class="scb-eyebrow-pip"></span>
-        Deadline May 10
+        <span class="scb-eyebrow-segment">
+          <span class="scb-eyebrow-pip" aria-hidden="true"></span>
+          Now Open for Registration
+        </span>
+        <span class="scb-eyebrow-segment scb-eyebrow-segment--deadline">
+          <span class="scb-eyebrow-pip" aria-hidden="true"></span>
+          Deadline May 10
+        </span>
       </div>
-      <div class="scb-headline">
+      <div class="scb-headline" role="heading" aria-level="2">
         2026 <span class="scb-headline-accent">SCALE</span><br>
         Symposium &amp; Annual Meeting
       </div>
       <div class="scb-meta">
-        May 18–20, 2026
-        <span class="scb-meta-sep">·</span>
-        Stewart Center, Purdue University
-        <span class="scb-meta-sep">·</span>
-        West Lafayette, IN
+        <span class="scb-meta-chunk">May 18–20, 2026<span class="scb-meta-sep" aria-hidden="true"> ·</span></span>
+        <span class="scb-meta-chunk">Stewart Center, Purdue University<span class="scb-meta-sep" aria-hidden="true"> ·</span></span>
+        <span class="scb-meta-chunk">West Lafayette, IN</span>
       </div>
     </div>
 

@@ -166,23 +166,63 @@ a { text-decoration: none; }
    ============================================================ */
 .hero {
   position: relative;
-  background: var(--color-navy);
   min-height: 88vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   overflow: hidden;
-  padding: 100px 7% 80px;
 }
 
-/* Thin gradient bar at the bottom of the hero */
+/* Thin gradient bar at the bottom of the hero — sits above both panels */
 .hero::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0;
   width: 100%; height: 5px;
   background: var(--gradient-navy-red);
+  z-index: 4;
 }
 
+/* ── Left content panel ── */
+.hero__left {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 88vh;
+  background: var(--color-navy);
+  /* Soft diagonal blend: mask-image fades the navy panel into the image
+     rather than hard-cutting it. 100deg matches the "\" diagonal angle.
+     Content max-width 540px clears the fade zone safely. */
+  -webkit-mask-image: linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
+  mask-image:         linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
+  display: flex;
+  align-items: center;
+  padding: 100px 7% 80px;
+}
+
+/* ── Right image panel ── */
+.hero__right {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__right-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Subtle dark vignette so image doesn't compete with content */
+.hero__right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 18, 32, 0.28);
+}
+
+/* Circuit PNG stays inside the left panel */
 .hero__circuit {
   position: absolute;
   right: -6%;
@@ -190,9 +230,6 @@ a { text-decoration: none; }
   width: 62%;
   opacity: 0.35;
   pointer-events: none;
-  /* Flip horizontally so the dot cluster sits on the right edge and
-     traces fan inward toward the hero content; rotate slightly clockwise
-     to align the sweep with the hero's vertical axis */
   transform: scaleX(-1) rotate(-18deg);
   transform-origin: center center;
 }
@@ -200,7 +237,8 @@ a { text-decoration: none; }
 .hero__content {
   position: relative;
   z-index: 2;
-  max-width: 760px;
+  /* Tighter max-width keeps text clear of the diagonal edge */
+  max-width: 660px;
 }
 
 .hero__eyebrow {
@@ -820,7 +858,14 @@ a { text-decoration: none; }
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
-  .hero { min-height: unset; padding: 80px 6% 70px; }
+  /* Collapse split layout: full-width navy panel, image hidden */
+  .hero__left {
+    clip-path: none;
+    min-height: unset;
+    padding: 80px 6% 70px;
+  }
+  .hero__right { display: none; }
+  .hero__content { max-width: 700px; }
   .hero__circuit { width: 110%; opacity: 0.18; right: -15%; top: -5%; }
   .mission__inner { grid-template-columns: 1fr; gap: 48px; }
   .mission__stack { align-items: center; width: 100%; }
@@ -856,46 +901,60 @@ a { text-decoration: none; }
      ============================================================ -->
 <section class="hero">
 
-  <!-- Circuit board illustration — brand asset PNG -->
-  <img
-    class="hero__circuit"
-    src="Illustrations/Backgrounds/circuit-gradient-blue-lightblue.png"
-    alt=""
-    aria-hidden="true"
-  >
+  <!-- Right image panel — sits behind the diagonal content panel -->
+  <div class="hero__right" aria-hidden="true">
+    <img
+      class="hero__right-img"
+      src="Images/on-stage.jpg"
+      alt=""
+    >
+  </div>
 
-  <div class="hero__content">
-    <div class="hero__eyebrow">
-      <span class="hero__eyebrow-pip"></span>
-      May 18–20, 2026
-      <span class="hero__eyebrow-pip"></span>
-      Stewart Center, Purdue University
-      <span class="hero__eyebrow-pip"></span>
-      West Lafayette, Indiana
+  <!-- Left content panel — navy background with "/" diagonal right edge -->
+  <div class="hero__left">
+
+    <!-- Circuit board illustration — brand asset PNG -->
+    <!-- <img
+      class="hero__circuit"
+      src="Illustrations/Backgrounds/circuit-gradient-blue-lightblue.png"
+      alt=""
+      aria-hidden="true"
+    > -->
+
+    <div class="hero__content">
+      <div class="hero__eyebrow">
+        <span class="hero__eyebrow-pip" aria-hidden="true"></span>
+        May 18–20, 2026
+        <span class="hero__eyebrow-pip" aria-hidden="true"></span>
+        Stewart Center, Purdue University
+        <span class="hero__eyebrow-pip" aria-hidden="true"></span>
+        West Lafayette, Indiana
+      </div>
+
+      <h1 class="hero__title">
+        2026 <span class="hero__title-accent">SCALE</span><br>
+        Symposium<br>&amp; Annual Meeting
+      </h1>
+
+      <div class="hero__subtitle">
+        Advancing the AI-Enabled Microelectronics Workforce
+      </div>
+
+      <p class="hero__body">
+        Join top minds from academia, industry, and defense to align on building the talent pipeline critical to U.S. technology leadership.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#register-logistics" class="btn btn--dark-red">Check Registration Details</a>
+        <a href="#agenda" class="btn btn--outline">View Full Agenda</a>
+      </div>
+
+      <div class="hero__deadline-badge">
+        <span class="hero__deadline-pip" aria-hidden="true"></span>
+        Registration Deadline: May 10, 2026
+      </div>
     </div>
 
-    <h1 class="hero__title">
-      2026 <span class="hero__title-accent">SCALE</span><br>
-      Symposium<br>&amp; Annual Meeting
-    </h1>
-
-    <div class="hero__subtitle">
-      Advancing the AI-Enabled Microelectronics Workforce
-    </div>
-
-    <p class="hero__body">
-      Join top minds from academia, industry, and defense to align on building the talent pipeline critical to U.S. technology leadership.
-    </p>
-
-    <div class="hero__actions">
-      <a href="#register-logistics" class="btn btn--dark-red">Check Registration Details</a>
-      <a href="#agenda"   class="btn btn--outline">View Full Agenda</a>
-    </div>
-
-    <div class="hero__deadline-badge">
-      <span class="hero__deadline-pip"></span>
-      Registration Deadline: May 10, 2026
-    </div>
   </div>
 
 </section>
