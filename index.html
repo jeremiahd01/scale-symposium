@@ -188,15 +188,22 @@ a { text-decoration: none; }
   z-index: 2;
   width: 100%;
   min-height: 88vh;
-  background: var(--color-navy);
-  /* Soft diagonal blend: mask-image fades the navy panel into the image
-     rather than hard-cutting it. 100deg matches the "\" diagonal angle.
-     Content max-width 540px clears the fade zone safely. */
-  -webkit-mask-image: linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
-  mask-image:         linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
+  /* No background here — the ::before pseudo-element carries the navy
+     background and mask so the content itself is never affected by the fade */
   display: flex;
   align-items: center;
   padding: 100px 7% 80px;
+}
+
+/* Navy background layer — masked independently so text stays 100% opaque */
+.hero__left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-navy);
+  -webkit-mask-image: linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
+  mask-image:         linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
 }
 
 /* ── Right image panel ── */
@@ -236,7 +243,7 @@ a { text-decoration: none; }
 
 .hero__content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   /* Tighter max-width keeps text clear of the diagonal edge */
   max-width: 660px;
 }
@@ -863,6 +870,10 @@ a { text-decoration: none; }
     clip-path: none;
     min-height: unset;
     padding: 80px 6% 70px;
+  }
+  .hero__left::before {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
   .hero__right { display: none; }
   .hero__content { max-width: 700px; }
