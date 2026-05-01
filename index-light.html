@@ -206,15 +206,23 @@ a { text-decoration: none; }
   padding: 100px 7% 80px;
 }
 
-/* White background layer — masked independently so text stays 100% opaque */
+/* White background layer — masked independently so text stays 100% opaque.
+   Pixel-based clamp() stops: proportional at large viewports, floor kicks in
+   at ~1280px so the white panel covers more of the screen as content wraps. */
 .hero__left::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   background: var(--color-white);
-  -webkit-mask-image: linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
-  mask-image:         linear-gradient(100deg, black 36%, rgba(0,0,0,0.6) 46%, transparent 58%);
+  -webkit-mask-image: linear-gradient(100deg,
+    black              clamp(500px, 41vw, 780px),
+    rgba(0,0,0,0.6)   clamp(690px, 51vw, 980px),
+    transparent        clamp(840px, 63vw, 1200px));
+  mask-image: linear-gradient(100deg,
+    black              clamp(500px, 41vw, 780px),
+    rgba(0,0,0,0.6)   clamp(690px, 51vw, 980px),
+    transparent        clamp(840px, 63vw, 1200px));
 }
 
 /* ── Right image panel ── */
@@ -256,6 +264,7 @@ a { text-decoration: none; }
   position: relative;
   z-index: 1;
   /* Tighter max-width keeps text clear of the diagonal edge */
+  /* max-width: 660px; */
   max-width: 660px;
 }
 
@@ -309,7 +318,7 @@ a { text-decoration: none; }
   font-weight: 300;
   line-height: 1.7;
   color: #444;
-  max-width: 600px;
+  max-width: clamp(380px, 45vw, 600px);
   margin-bottom: 40px;
 }
 
